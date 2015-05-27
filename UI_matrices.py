@@ -136,17 +136,20 @@ class mainUI(Frame):
 		self.refreshResume()
 
 	def postPolyFigure(self):
+		"""Ajouter la le point à la figure"""
 		if len(self.polygone) > 1:
 			addPolygone(self.figureBase, self.polygone)
 			self.polygone = []
 			self.refreshResume()
 
 	def resetPoly(self):
+		"""Remet à zero le polygone"""
 		self.polygone = []
 		self.figureBase = []
 		self.refreshResume()
 
 	def refreshResume(self):
+		"""Afficher les informations du polygone et la figure actuelle"""
 		resume_poly_figure = "Polygone actuel : \n"
 		resume_poly_figure += raw_afficherPolygone(self.polygone)
 		resume_poly_figure += "\n\nFigure :\n"
@@ -158,6 +161,7 @@ class mainUI(Frame):
 		resume_poly_figure = ""
 
 	def askUserT(self):
+		"""Affiche la fenetre permettant de choisir les transformations à appliquer"""
 		self.prompt2 = Toplevel()
 		self.prompt2.minsize(500, 300)
 		self.prompt2.title("Pimp My Matrice")
@@ -228,6 +232,7 @@ class mainUI(Frame):
 		self.refreshResumeM()
 
 	def genreMatrice(self):
+		"""Recupère le type de transformation et les paramètres correspondants"""
 		c = self.transformRadio.get()
 
 		if c==1:
@@ -257,6 +262,7 @@ class mainUI(Frame):
 		self.refreshResumeM()
 
 	def validateMatrice(self):
+		"""Genere une matrice équivalente à toutes les transformations voulues"""
 		if len(self.matriceFinale)==0:
 			self.matriceFinale = self.matriceTransfo
 		else :
@@ -265,6 +271,7 @@ class mainUI(Frame):
 		self.refreshResumeM()
 
 	def updateAfterRadio(self):
+		"""Affiche les champs qu'il faut remplir pour la transformation sélectionnée"""
 		c = self.transformRadio.get()
 		self.prompt2.TransX.config(state=DISABLED)
 		self.prompt2.TransY.config(state=DISABLED)
@@ -289,6 +296,7 @@ class mainUI(Frame):
 			pass
 
 	def refreshResumeM(self):
+		"""Affiche les informations des matrices de transformation"""
 		resume_Matrices = "Matrice générée: \n"
 		resume_Matrices += raw_afficherMatrice(self.matriceTransfo)
 		resume_Matrices += "\nMatrice finale: \n"
@@ -300,11 +308,13 @@ class mainUI(Frame):
 		self.prompt2.resumeM.config(state=DISABLED)
 
 	def ResetMatrices(self):
+		"""Remet les deux matrices à zéro"""
 		self.matriceTransfo = []
 		self.matriceFinale = []
 		self.refreshResumeM()
 
 	def Transforme(self):
+		"""Applique la transformation"""
 		self.oldFigure=deepcopy(self.figureBase)
 		self.figureTrans = transformerFigure(self.figureBase, self.matriceFinale)
 		self.figureBase = deepcopy(self.oldFigure)
